@@ -131,7 +131,22 @@ def get_starships(filename):
     starships as the value
     '''
 
-    pass
+    dict = {}
+    data = load_json(filename)
+    for page in data:
+        for item in data[page]:
+            key = item.get("name")
+            starships = item.get("starships")
+            if starships == []:
+                continue
+            if starships != []:
+                starshipnames = []
+                for starship in starships:
+                    starship_info = get_swapi_info(starship)
+                    starship_name = starship_info.get("name")
+                    starshipnames.append(starship_name)
+            dict[key] = starshipnames  
+    return dict  
 
 #################### EXTRA CREDIT ######################
 
