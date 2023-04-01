@@ -4,7 +4,7 @@ import unittest
 import os
 
 ###########################################
-# Your name:                              #
+# Your name: Megan Fan                    #
 # Who you worked with:                    #
 ###########################################
 
@@ -24,7 +24,14 @@ def load_json(filename):
         if the cache does not exist, an empty dict
     '''
 
-    pass
+    try:
+        file = open(filename, 'r')
+        contents = file.read()
+        data = json.loads(contents)
+        file.close()
+        return data
+    except:
+        return {}
 
 def write_json(filename, dict):
     '''
