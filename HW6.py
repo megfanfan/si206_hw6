@@ -51,7 +51,10 @@ def write_json(filename, dict):
         does not return anything
     '''  
 
-    pass
+    json_str = json.dumps(dict)
+    file = open(filename, 'w')
+    file.write(json_str)
+    file.close()
 
 def get_swapi_info(url, params=None):
     '''
