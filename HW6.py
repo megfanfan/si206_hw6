@@ -167,7 +167,23 @@ def calculate_bmi(filename):
     dict: dictionary with the name as a key and the BMI as the value
     '''
 
-    pass
+    bmi_dict = {}
+    data = load_json(filename)
+    for page in data:
+        for item in data[page]:
+            key = item.get("name")
+            height = item.get("height")
+            mass = item.get("mass")
+            if mass == "unknown" or height == "unknown":
+                continue
+            height = height.replace(',', '')
+            mass = mass.replace(',', '')
+            height = int(float(height))
+            mass = int(float(mass))
+            bmi = (mass / (height * height) ) * 10000
+            bmi = round(bmi, 2)
+            bmi_dict[key] = bmi
+    return bmi_dict
 
 class TestHomework6(unittest.TestCase):
     def setUp(self):
