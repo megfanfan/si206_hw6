@@ -100,7 +100,21 @@ def cache_all_pages(people_url, filename):
         
     '''
 
-    pass
+    dict = load_json(filename)
+    if "page 1" not in dict:
+        new_dict = get_swapi_info(people_url)
+        result = new_dict.get("results")
+        dict["page 1"] = result
+    for i in range(2,10):
+        page_statement = "page " + str(i)
+        if page_statement in dict:
+            continue
+        else:
+            params = {'page': i}
+            new_dict = get_swapi_info(people_url, params)
+            result = new_dict.get("results")
+            dict[page_statement] = result
+    write_json(filename, dict)
 
 def get_starships(filename):
     '''
